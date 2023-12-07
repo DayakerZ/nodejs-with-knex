@@ -1,15 +1,20 @@
 import { Knex } from "knex";
 
 export class UserService {
-  constructor(private knex: Knex) {}
+  knex: Knex;
+  constructor(knex: Knex) {
+    this.knex = knex;
+  }
 
   async getAllUsers() {
     return this.knex.select("*").from("users");
   }
 
   async createUser(username: string, email: string) {
-    const [userId] = await this.knex("users").insert({ username, email }, "id");
-    return this.getUserById(userId.id);
+    const [user] = await this.knex
+      .from("users")
+      .insert({ username, email }, ["id", "username", "email"]);
+    return user;
   }
 
   async getUserById(userId: string) {
@@ -17,14 +22,12 @@ export class UserService {
   }
 
   async updateUser(userId: string, username: string, email: string) {
-    const updatedCount = await this.knex("users")
+    const [updatedUser] = await this.knex
+      .from("users")
       .where({ id: userId })
-      .update({ username, email });
+      .update({ username, email })
+      .returning("*");
 
-    if (updatedCount > 0) {
-      return this.getUserById(userId);
-    } else {
-      return null;
-    }
+    return updatedUser || null;
   }
 }

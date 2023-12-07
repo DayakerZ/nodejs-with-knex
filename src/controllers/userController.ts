@@ -3,7 +3,7 @@ import { UserService } from "../services/userService";
 import db from "../config/db";
 
 export class UserController {
-  userService: UserService;
+  private userService: UserService;
   constructor() {
     this.userService = new UserService(db);
     this.createUser = this.createUser.bind(this);
@@ -16,7 +16,6 @@ export class UserController {
       const users = await this.userService.getAllUsers();
       res.json(users);
     } catch (error) {
-      console.error(error);
       res.status(500).json({ error: "Internal Server Error" });
     }
   }
@@ -27,7 +26,6 @@ export class UserController {
       const newUser = await this.userService.createUser(username, email);
       res.json(newUser);
     } catch (error) {
-      console.error(error);
       res.status(500).json({ error: "Internal Server Error" });
     }
   }
