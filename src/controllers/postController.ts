@@ -1,12 +1,14 @@
 import { Request, Response } from "express";
-import { Postservice } from "../services/postService";
+import { PostService } from "../services/postService";
 import { UserService } from "../services/userService";
+import db from "../config/db";
 
 export class PostController {
-  constructor(
-    private postService: Postservice,
-    private userService: UserService
-  ) {
+  private postService: PostService;
+  private userService: UserService;
+  constructor() {
+    this.postService = new PostService(db);
+    this.userService = new UserService(db);
     this.createPost = this.createPost.bind(this);
     this.deletePost = this.deletePost.bind(this);
   }
