@@ -1,4 +1,5 @@
 import { Knex } from "knex";
+import { producePost } from "../producer";
 
 export class PostService {
   constructor(private knex: Knex) {}
@@ -16,6 +17,10 @@ export class PostService {
         "content",
         "user_id",
       ]);
+      
+    if(post){
+      producePost(post);
+    }
     return post;
   }
 
