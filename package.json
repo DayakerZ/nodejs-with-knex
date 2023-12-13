@@ -8,7 +8,8 @@
     "start": "nodemon src/app.ts",
     "migrate": "npx knex migrate:latest --knexfile ./src/config/knexfile.ts",
     "rollback": "npx knex migrate:rollback --knexfile ./src/config/knexfile.ts",
-    "make": "npx knex migrate:make init -x ts --knexfile ./src/config/knexfile.ts"
+    "make": "npx knex migrate:make init -x ts --knexfile ./src/config/knexfile.ts",
+    "consumer":"nodemon src/consumer.ts"
   },
   "keywords": [],
   "author": "Dayaker <dayakerreddy.kandala@zemosolabs.com> (http://localhost:8000/)",
@@ -17,6 +18,7 @@
     "@types/express": "^4.17.21",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "ioredis": "^5.3.2",
     "knex": "^3.0.1",
     "nodemon": "^3.0.2",
     "pg": "^8.11.3",
@@ -25,6 +27,7 @@
   },
   "devDependencies": {
     "@types/jest": "^29.5.10",
+    "@types/node": "^20.10.4",
     "jest": "^29.7.0",
     "ts-jest": "^29.1.1"
   }
