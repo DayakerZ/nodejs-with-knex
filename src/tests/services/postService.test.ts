@@ -1,6 +1,10 @@
 import knex, { Knex, QueryBuilder } from "knex";
 import { PostService } from "../../services/postService";
+import { producePost } from "../../producer";
+import Redis from "ioredis";
 
+jest.mock("ioredis");
+jest.mock("../../producer");
 jest.mock("knex");
 
 describe("PostService", () => {
@@ -66,6 +70,7 @@ describe("PostService", () => {
       "content",
       "user_id",
     ]);
+    expect(producePost).toHaveBeenCalledWith(mockPost);
   });
 
   test("should delete the post with id and return deleted post", async () => {

@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
 import { UserService } from "../../services/userService";
 import { UserController } from "../../controllers/userController";
+import Redis from "ioredis";
 
+jest.mock("ioredis");
 jest.mock("../../services/userService");
 
 describe("UserController", () => {

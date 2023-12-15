@@ -2,7 +2,9 @@ import { Request, Response } from "express";
 import { UserService } from "../../services/userService";
 import { PostService } from "../../services/postService";
 import { PostController } from "../../controllers/postController";
+import Redis from "ioredis";
 
+jest.mock("ioredis");
 jest.mock("../../services/userService");
 jest.mock("../../services/postService");
 
