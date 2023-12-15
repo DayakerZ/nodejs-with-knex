@@ -1,5 +1,8 @@
 import { Knex } from "knex";
 import { UserService } from "../../services/userService";
+import Redis from "ioredis";
+
+jest.mock("ioredis");
 
 describe("UserService", () => {
   let userService: UserService;
@@ -14,11 +17,26 @@ describe("UserService", () => {
   beforeEach(() => {
     mockKnex = {} as Knex;
     userService = new UserService(mockKnex as Knex);
+    
     jest.clearAllMocks();
+  });
+
+  test("should return cached users if available", async () => {
+    // Mock Redis get method to return cached users
+    (Redis.prototype.get as jest.Mock).mockResolvedValueOnce(
+      JSON.stringify([{ id: 1, username: "test" }])
+    );
+
+    const result = await userService.getAllUsers();
+
+    expect(result).toEqual([{ id: 1, username: "test" }]);
+    expect(Redis.prototype.get).toHaveBeenCalledWith("allUsers");
   });
 
   test("should return all users", async () => {
     // Arrange
+    (Redis.prototype.get as jest.Mock).mockResolvedValueOnce(null);
+    (Redis.prototype.set as jest.Mock).mockResolvedValueOnce("OK");
     const users = [{ id: 1, username: "testuser", email: "test@example.com" }];
     mockKnex.select = mockSelect.mockReturnThis();
     mockKnex.from = mockFrom.mockReturnThis().mockResolvedValue(users);
