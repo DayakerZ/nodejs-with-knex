@@ -4,12 +4,12 @@
   "description": "",
   "main": "src/app.ts",
   "scripts": {
-    "test": "jest --coverage",
+    "test": "jest --coverage --detectOpenHandles",
     "start": "nodemon src/app.ts",
     "migrate": "npx knex migrate:latest --knexfile ./src/config/knexfile.ts",
     "rollback": "npx knex migrate:rollback --knexfile ./src/config/knexfile.ts",
     "make": "npx knex migrate:make init -x ts --knexfile ./src/config/knexfile.ts",
-    "consumer":"nodemon src/consumer.ts"
+    "consumer": "nodemon src/consumer.ts"
   },
   "keywords": [],
   "author": "Dayaker <dayakerreddy.kandala@zemosolabs.com> (http://localhost:8000/)",
@@ -18,7 +18,9 @@
     "@types/express": "^4.17.21",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "express-jwt": "^8.4.1",
     "ioredis": "^5.3.2",
+    "jsonwebtoken": "^9.0.2",
     "knex": "^3.0.1",
     "nodemon": "^3.0.2",
     "pg": "^8.11.3",

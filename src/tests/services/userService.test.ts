@@ -54,7 +54,7 @@ describe("UserService", () => {
     // Arrange
     const userId = "7cce27c5-9df8-4f8f-9b3f-24d314e5538a";
     const user = {
-      id: "7cce27c5-9df8-4f8f-9b3f-24d314e5538a",
+      id: userId,
       username: "testuser",
       email: "test@example.com",
     };
