@@ -4,6 +4,15 @@ import { producePost } from "../producer";
 export class PostService {
   constructor(private knex: Knex) {}
 
+  async getAllPosts() {
+    const posts = await this.knex.select("*").from("posts");
+    return posts;
+  }
+
+  async getPostsByuserId(userId: string) {
+    return this.knex.select("*").from("posts").where({ user_id: userId });
+  }
+
   async getPostById(postId: string) {
     return this.knex.select("*").from("posts").where({ id: postId }).first();
   }
@@ -17,8 +26,8 @@ export class PostService {
         "content",
         "user_id",
       ]);
-      
-    if(post){
+
+    if (post) {
       producePost(post);
     }
     return post;
@@ -33,5 +42,20 @@ export class PostService {
     } else {
       return null;
     }
+  }
+
+  async updatePost(
+    postId: string,
+    title: string,
+    content: string,
+    user_id: string
+  ) {
+    const [updatedPost] = await this.knex
+      .from("posts")
+      .where({ id: postId })
+      .update({ title, content, user_id })
+      .returning("*");
+
+    return updatedPost;
   }
 }

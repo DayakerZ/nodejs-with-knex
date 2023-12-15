@@ -11,7 +11,7 @@ const consumePosts = async () => {
   const consumerGroup = "postConsumerGroup";
   const consumerName = "postConsumer";
 
-  //   await redis.xgroup("CREATE", streamKey, consumerGroup, "$", "MKSTREAM");
+    // await redis.xgroup("CREATE", streamKey, consumerGroup, "$", "MKSTREAM");
 
   while (true) {
     const result = await redis.xreadgroup(
@@ -65,4 +65,4 @@ const readStreamRange = async (
 
 consumePosts();
 
-readStreamRange(streamKey, "1702357823375-0", "1702369936139-0");
+readStreamRange(streamKey, "1702538575406-0", "1702538606210-0",2);

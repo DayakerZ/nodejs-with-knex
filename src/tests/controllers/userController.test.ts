@@ -49,7 +49,9 @@ describe("UserController", () => {
     expect(mockResponse.json).toHaveBeenCalledWith(mockUsers);
   });
 
-  test("should handle errors and return 500 status", async () => {
+  test("should handle errors and return 500 status when getting all Users", async () => {
+    userController = new UserController();
+    expect(UserService).toHaveBeenCalledTimes(1);
     (UserService.prototype.getAllUsers as jest.Mock).mockRejectedValueOnce(
       new Error("Database error")
     );
@@ -66,6 +68,8 @@ describe("UserController", () => {
   });
 
   test("should create a new user", async () => {
+    userController = new UserController();
+    expect(UserService).toHaveBeenCalledTimes(1);
     const mockUser = {
       id: "7cce27c5-9df8-4f8f-9b3f-24d314e5538a",
       username: "newuser",
@@ -84,7 +88,9 @@ describe("UserController", () => {
     expect(mockResponse.json).toHaveBeenCalledWith(mockUser);
   });
 
-  test("should handle errors and return 500 status", async () => {
+  test("should handle errors and return 500 status when creating an user", async () => {
+    userController = new UserController();
+    expect(UserService).toHaveBeenCalledTimes(1);
     (UserService.prototype.createUser as jest.Mock).mockRejectedValueOnce(
       new Error("Database error")
     );
@@ -102,6 +108,8 @@ describe("UserController", () => {
   });
 
   test("should update an existing user", async () => {
+    userController = new UserController();
+    expect(UserService).toHaveBeenCalledTimes(1);
     const mockUser = {
       id: "7cce27c5-9df8-4f8f-9b3f-24d314e5538a",
       username: "updateduser",
@@ -124,7 +132,9 @@ describe("UserController", () => {
     expect(mockResponse.json).toHaveBeenCalledWith(mockUser);
   });
 
-  test("should handle user not found and return 404 status", async () => {
+  test("should handle user not found and return 404 status when updating a user", async () => {
+    userController = new UserController();
+    expect(UserService).toHaveBeenCalledTimes(1);
     (UserService.prototype.updateUser as jest.Mock).mockResolvedValueOnce(null);
     mockRequest.params = { id: "999" };
     mockRequest.body = {
@@ -142,6 +152,8 @@ describe("UserController", () => {
   });
 
   test("should handle errors and return 500 status", async () => {
+    userController = new UserController();
+    expect(UserService).toHaveBeenCalledTimes(1);
     (UserService.prototype.updateUser as jest.Mock).mockRejectedValueOnce(
       new Error("Database error")
     );
