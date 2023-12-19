@@ -51,7 +51,7 @@ describe("PostController", () => {
     mockRequest.body = {
       title: "post one",
       content: "content of post one",
-      user_id: "acce27c5-9df8-4f8f-9b3f-24d314e5538a",
+      userId: "acce27c5-9df8-4f8f-9b3f-24d314e5538a",
     };
 
     await postController.createPost(
@@ -71,7 +71,7 @@ describe("PostController", () => {
     mockRequest.body = {
       title: "post one",
       content: "content of post one",
-      user_id: "acce27c5-9df8-4f8f-9b3f-24d314e5538a",
+      userId: "acce27c5-9df8-4f8f-9b3f-24d314e5538a",
     };
 
     await postController.createPost(
@@ -94,7 +94,7 @@ describe("PostController", () => {
     mockRequest.body = {
       title: "post one",
       content: "content of post one",
-      user_id: "acce27c5-9df8-4f8f-9b3f-24d314e5538a",
+      userId: "acce27c5-9df8-4f8f-9b3f-24d314e5538a",
     };
 
     await postController.createPost(
