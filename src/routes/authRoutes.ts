@@ -1,4 +1,3 @@
-// Example login route
 import { Router, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import * as dotenv from "dotenv";

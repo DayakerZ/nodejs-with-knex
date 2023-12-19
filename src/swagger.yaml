@@ -1,0 +1,146 @@
+openapi: 3.0.1
+info:
+  title: "API Documentation"
+  version: "1.0.0"
+paths:
+  /login:
+    post:
+      summary: Authenticate user and get a token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+      responses:
+        '200':
+          description: Successful authentication
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        '401':
+          description: Unauthorized
+  /users:
+    get:
+      summary: get All users 
+      responses:
+        '200':
+          description: Successfully fetched all users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    username:
+                      type: string
+                    email:
+                      type: string
+                    created_at:
+                      type: string
+                    updated_at:
+                      type: string
+        '500':
+          description: Internal server error 
+    post:
+      summary: create new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+                type: object
+                properties:
+                  username:
+                    type: "string"
+                  email:
+                    type: "string"
+      responses:
+        '200':
+          description: Successfully created user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  username:
+                    type: string
+                  email:
+                    type: string                 
+        '500':
+          description: Internal server Error  
+  /users/{id}:
+    put:
+      summary: update existing user based on the user id provided
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of the user to be updated"
+          required: true
+          type: "string"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+                type: object
+                properties:
+                  username:
+                    type: "string"
+                  email:
+                    type: "string"
+      responses:
+        '200':
+          description: Successfully created user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  username:
+                    type: string
+                  email:
+                    type: string
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+        '404':
+          description: User not found exception
+        '500':
+          description: Internal server Error
+        
+  /posts:
+    get:
+      summary: Get all posts
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    postId:
+                      type: string
+                    title:
+                      type: string
+                    content:
+                      type: string
+                  
